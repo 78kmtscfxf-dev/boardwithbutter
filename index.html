@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Рекламный сайт - Наши работы</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Стили для вкладок */
+        .tabs {
+            border-radius: 10px;
+            box-shadow: 0 5px 15px #7f5539;
+            margin-bottom: 40px;
+            overflow: hidden;
+        }
+
+        .tab-headers {
+            display: flex;
+            width: 40%;
+        }
+
+        .tab-header {
+            flex: 1;
+            padding: 20px;
+            text-align: center;
+            background: none;
+            border: none;
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #7f5539;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab-header:hover {
+            background: #e9ecef;
+            color:  #7f5539
+        }
+
+        .tab-header.active {
+            background: white;
+            color: #7f5539;
+            border-bottom: 3px solid #7f5539;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 0;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-image: url(bg2.png);
+            background-size: cover;
+            background-position: center;
+            background-repeat: repeat-x;
+
+        }
+
+        .container {
+
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+
+        }
+
+        .container2 {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+
+
+        }
+
+        /* Первый контейнер на весь экран */
+        .fullscreen-header {
+            width: 100%;
+            height: 100vh;
+            color: #7f5539;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+            /* background-image: url(background.png); - удаляем отсюда */
+            /* background-size: cover; - удаляем отсюда */
+            /* background-position: center; - удаляем отсюда */
+            /* background-repeat: no-repeat; - удаляем отсюда */
+            box-shadow: 0 10px 30px #7f5539;
+            position: relative;
+            overflow: hidden;
+            /* добавляем */
+        }
+
+        .fullscreen-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url(background.png);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transform: scale(1.1);
+            /* начальный масштаб */
+            animation: scaleDown 4s ease-in-out forwards;
+            z-index: -1;
+        }
+
+        @keyframes scaleDown {
+            from {
+                transform: scale(1.1);
+            }
+
+            to {
+                transform: scale(1);
+            }
+        }
+
+        .header-content {
+            max-width: 800px;
+        }
+
+        .fullscreen-header h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px #7f5539;
+        }
+
+        .fullscreen-header p {
+            font-size: 1.3em;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator span {
+            display: block;
+            width: 30px;
+            height: 30px;
+            border-bottom: 2px solid white;
+            border-right: 2px solid white;
+            transform: rotate(45deg);
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateX(-50%) translateY(0);
+            }
+
+            50% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+        }
+
+        .columns {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .column {
+            flex: 1;
+            background:#ffffff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px #7f5539;
+        }
+
+        .column h2 {
+            color: #7f5539;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.8em;
+        }
+
+        .image-gallery {
+            display: grid;
+            gap: 15px;
+        }
+
+        .image-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px #7f5539;
+        }
+
+        .image-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .image-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .image-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #7f5539;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .image-item:hover .image-caption {
+            transform: translateY(0);
+        }
+
+        .cta-section {
+            text-align: center;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px #67451c;
+            margin-bottom: 40px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #67451c 0%, #d87c3f 100%);
+            color: white;
+            padding: 15px 40px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #7f5539
+            color: rgb(233, 175, 128);
+            margin-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .columns {
+                flex-direction: column;
+            }
+
+            .fullscreen-header h1 {
+                font-size: 2.2em;
+            }
+
+            .fullscreen-header p {
+                font-size: 1.1em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .fullscreen-header h1 {
+                font-size: 1.8em;
+            }
+
+            .fullscreen-header {
+                height: 70vh;
+            }
+
+        }
+    </style>
+</head>
+<script>
+    // JavaScript для переключения вкладок
+    document.addEventListener('DOMContentLoaded', function () {
+        const tabHeaders = document.querySelectorAll('.tab-header');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabHeaders.forEach(header => {
+            header.addEventListener('click', function () {
+                const tabId = this.getAttribute('data-tab');
+
+                // Убираем активный класс у всех заголовков и контента
+                tabHeaders.forEach(h => h.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+
+                // Добавляем активный класс текущему заголовку и контенту
+                this.classList.add('active');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+    });
+</script>
+
+<body>
+    <!-- Первый контейнер на весь экран -->
+    <header class="fullscreen-header">
+        <div class="header-content">
+            <h1 style="font-size: 90px;">Доска с маслом</h1>
+            <p>Знания вот где суть! С "Доской С Маслом" - к наукам путь!</p>
+            <a href="#content" class="cta-button">Узнать больше</a>
+        </div>
+        <div class="scroll-indicator">
+            <span></span>
+        </div>
+    </header>
+    <!-- Основной контент -->
+    <div id="content" class="container2">
+        <div class="tabs">
+            <div class="tab-headers">
+                <button class="tab-header active" data-tab="tab1">Наши Работы</button>
+                <button class="tab-header" data-tab="tab2">О Компании</button>
+            </div>
+            <div id="tab1" class="tab-content active">
+                <h1 style="text-align: center; font-size: 72px;">Наши работы</h1>
+                <div class="columns">
+                    <div class="column">
+                        <h2>Наши товары</h2>
+                        <div class="image-gallery">
+                            <div class="image-item">
+                                <img src="c:\Users\79170\OneDrive\Рабочий стол\проект\фото2.jpg" alt="Проект 1">
+                                <div class="image-caption">Набор из 3шт.</div>
+                            </div>
+                            <div class="image-item">
+                                <img src="c:\Users\79170\OneDrive\Рабочий стол\проект\фото1.jpg" alt="Проект 2">
+                                <div class="image-caption">Свойства</div>
+                            </div>
+                            <div class="image-item">
+                                <img src="c:\Users\79170\OneDrive\Рабочий стол\проект\фото3.jpg" alt="Проект 3">
+                                <div class="image-caption">Прогрессии</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="column">
+                        <h2>Описание товаров</h2>
+
+                        <h3>Математические доски</h3>
+                        <p>Доска с математическими формулами на выбор. Колличество 3 шт. </p>
+                        <h3 style="margin-top: 210px;">Математические доски</h3>
+                        <p>Доска с математическими формулами по теме "Свойства"</p>
+                        <h3 style="margin-top: 210px;">Математические доски</h3>
+                        <p>Доска с математическими формулами по теме "Прогрессии"</p>
+
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div id="tab2" class="tab-content">
+        <div class="text-content">
+            <h2>О нашей компании</h2>
+            <p>Мы - команда профессионалов, которая уже более 10 лет успешно работает на рынке digital-решений. 
+                Наша миссия - помогать бизнесу достигать новых высот с помощью современных технологий и креативных подходов.</p>
+
+            <h3>Наша история</h3>
+            <p>Основанная в 2025 году, наша компания начинала с небольших веб-проектов для местного бизнеса. Сегодня
+                мы реализовали более 500 успешных проектов для клиентов из разных стран мира. Наш рост обусловлен
+                постоянным стремлением к совершенству и внимательным отношением к потребностям каждого клиента.</p>
+
+            <h3>Наши ценности</h3>
+            <ul>
+                <li><strong>Качество:</strong> Мы никогда не идем на компромиссы в вопросах качества нашей работы
+                </li>
+                <li><strong>Инновации:</strong> Постоянно следим за трендами и внедряем новые технологии</li>
+                <li><strong>Надежность:</strong> Выполняем обязательства в срок и поддерживаем наших клиентов</li>
+                <li><strong>Прозрачность:</strong> Открытость в коммуникации и честность в отношениях</li>
+            </ul>
+
+            <h3>Почему выбирают нас</h3>
+            <p>Более 95% наших клиентов рекомендуют нас своим партнерам. Мы гордимся таким высоким показателем
+                лояльности, который достигается благодаря индивидуальному подходу к каждому проекту и глубокому
+                пониманию бизнес-процессов наших клиентов.</p>
+
+            <p>Наша команда состоит из сертифицированных специалистов с опытом работы в крупных международных
+                компаниях. Мы постоянно инвестируем в обучение и развитие наших сотрудников, чтобы предлагать вам
+                только лучшие решения.</p>
+
+            <h3>Наше видение</h3>
+            <p>Мы стремимся стать лидерами в создании цифровых решений, которые не только решают текущие задачи
+                бизнеса, но и создают основу для будущего роста. Наша цель - помогать компаниям трансформироваться и
+                успешно конкурировать в цифровую эпоху.</p>
+            фровую эпоху.</p>
+        </div>
+    </div>
+    </div>
+
+    <div class="cta-section">
+        <h2>Готовы начать сотрудничество?</h2>
+        <p>Свяжитесь с нами сегодня и получите бесплатную консультацию по вашему проекту</p>
+        <a href="#contact" class="cta-button">Связаться с нами</a>
+    </div>
+    </div>
+    </div>
+    <footer id="contact">
+        <div class="container">
+            <p>&copy; 2024 Наша компания. Все права защищены.</p>
+            <p>Телефон: +7 (999) 1233-45-67 | Email: info@example.com</p>
+        </div>
+    </footer>
+</body>
+
+</html>
